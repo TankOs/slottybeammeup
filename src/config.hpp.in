@@ -1,0 +1,5 @@
+#pragma once
+
+#include <string>
+
+const std::string ASSETS_PATH = "@ASSETS_PATH@";
