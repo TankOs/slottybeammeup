@@ -21,25 +21,25 @@ int main() {
   window.setFramerateLimit(120);
 
   // Load textures.
-  sf::Texture drums_texture;
+  sf::Texture frame_texture;
   sf::Texture apple_texture;
   sf::Texture coin_texture;
   sf::Texture bar_texture;
   sf::Texture cherries_texture;
 
-  drums_texture.loadFromFile(ASSETS_PATH + "/drums.png");
+  frame_texture.loadFromFile(ASSETS_PATH + "/frame.png");
   apple_texture.loadFromFile(ASSETS_PATH + "/apple.png");
   coin_texture.loadFromFile(ASSETS_PATH + "/coin.png");
   bar_texture.loadFromFile(ASSETS_PATH + "/bar.png");
   cherries_texture.loadFromFile(ASSETS_PATH + "/cherries.png");
 
   // Sprites.
-  sf::Sprite drums_sprite(drums_texture);
-  drums_sprite.setOrigin({
-      static_cast<float>(drums_texture.getSize().x) / 2.0f,
-      static_cast<float>(drums_texture.getSize().y) / 2.0f
+  sf::Sprite frame_sprite(frame_texture);
+  frame_sprite.setOrigin({
+      static_cast<float>(frame_texture.getSize().x) / 2.0f,
+      static_cast<float>(frame_texture.getSize().y) / 2.0f
   });
-  drums_sprite.setPosition({
+  frame_sprite.setPosition({
       static_cast<float>(window.getSize().x) / 2.0f,
       static_cast<float>(window.getSize().y) / 2.0f
   });
@@ -59,27 +59,28 @@ int main() {
 
   {
     float drum_width =
-      static_cast<float>(drums_texture.getSize().x / drums.size());
-    sf::Vector2f drum_center(
-      drum_width / 2.0f, drums_texture.getSize().y / 2.0f
-    );
-    // lol just guessing right now.. Almost correct though! ;-)
-    sf::Vector2f drum_position =
-      drums_sprite.getPosition() -
-      sf::Vector2f(
-        drums_sprite.getOrigin().x / 2.0f + drum_center.x / 2.0f, 0.0f
-      )
+      static_cast<float>(frame_texture.getSize().x / drums.size())
     ;
+    sf::Vector2f drum_position(0.0f, 0.0f);
 
     for(std::size_t drum_idx = 0; drum_idx < drums.size(); ++drum_idx) {
       Drum& drum = drums[drum_idx];
-
-      drum.setOrigin(drum_center);
       drum.setPosition(drum_position);
-
       drum_position.x += drum_width;
     }
   }
+
+  // We'll render the drums' pictures to a render texture in order to properly
+  // apply a scissor to it. SFML only has limited support for such things.
+  sf::RenderTexture drums_render_texture;
+  drums_render_texture.create(
+    frame_texture.getSize().x,
+    frame_texture.getSize().y
+  );
+
+  sf::Sprite drums_sprite(drums_render_texture.getTexture());
+  drums_sprite.setPosition(frame_sprite.getPosition());
+  drums_sprite.setOrigin(frame_sprite.getOrigin());
 
   // Loop.
   sf::Event event;
@@ -91,8 +92,13 @@ int main() {
   while(terminate == false) {
     while(window.pollEvent(event) == true) {
       if(event.type == sf::Event::KeyPressed) {
-        if(event.key.code == sf::Keyboard::Escape) {
+        if(event.key.code == sf::Keyboard::Key::Escape) {
           terminate = true;
+        }
+        else if(event.key.code == sf::Keyboard::Key::S) {
+          for(auto& drum : drums) {
+            drum.setRunning(!drum.getRunning());
+          }
         }
       }
     }
@@ -110,13 +116,17 @@ int main() {
     }
 
     // Render.
-    window.clear({255, 255, 255});
+    drums_render_texture.clear({255, 255, 255});
 
     for(const auto& drum : drums) {
-      window.draw(drum);
+      drums_render_texture.draw(drum);
     }
 
+    drums_render_texture.display();
+
+    window.clear({255, 255, 255});
     window.draw(drums_sprite);
+    window.draw(frame_sprite);
 
     window.display();
   }
