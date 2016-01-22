@@ -12,6 +12,7 @@
 
 const sf::VideoMode VIDEO_MODE(1280, 720);
 const std::size_t DRUM_SIZE = 3;
+const sf::Time SIM_STEP = sf::milliseconds(1000 / 100); // 100 FPS.
 
 int main() {
   std::srand(static_cast<unsigned int>(std::time(nullptr)));
@@ -84,7 +85,8 @@ int main() {
   sf::Event event;
   bool terminate = false;
   sf::Clock frame_clock;
-  sf::Time frame_time = sf::Time::Zero;
+  sf::Time frame_time;
+  sf::Time sim_time_bucket;
 
   while(terminate == false) {
     while(window.pollEvent(event) == true) {
@@ -97,9 +99,14 @@ int main() {
 
     // Update simulation.
     frame_time = frame_clock.restart();
+    sim_time_bucket += frame_time;
 
-    for(auto& drum : drums) {
-      drum.update(frame_time);
+    while(sim_time_bucket >= SIM_STEP) {
+      for(auto& drum : drums) {
+        drum.update(SIM_STEP);
+      }
+
+      sim_time_bucket -= SIM_STEP;
     }
 
     // Render.

@@ -61,7 +61,4 @@ void Drum::update(sf::Time time) {
     _active_picture = (_active_picture + 1) % _textures.size();
     _offset += 1.0f;
   }
-
-  std::cout << _active_picture << "/" << _picture_count << std::endl;
-  std::cout << "-" << std::endl;
 }
