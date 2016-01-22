@@ -1,54 +1,21 @@
 #include "config.hpp"
 #include "vector.hpp"
+#include "drum.hpp"
 
 #include <SFML/Graphics.hpp>
 
 #include <vector>
 #include <cstdint>
 #include <cassert>
+#include <iostream>
 
-class Drum : public sf::Drawable, public sf::Transformable {
-  public:
-    Drum(const std::vector<const sf::Texture*>& textures) :
-      sf::Drawable(),
-      _textures(textures),
-      _pictures(textures.size())
-    {
-      assert(textures.size() > 0);
-
-      for(
-        std::size_t picture_idx = 0;
-        picture_idx < _pictures.size();
-        ++picture_idx
-      ) {
-        const sf::Texture& texture = *textures[picture_idx];
-
-        sf::Sprite& picture = _pictures[picture_idx];
-        picture.setPosition({
-            0.0f,
-            static_cast<float>(picture_idx) * texture.getSize().y
-        });
-
-        picture.setTexture(texture, true);
-      }
-    }
-
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-      states.transform *= getTransform();
-
-      for(const auto& picture : _pictures) {
-        target.draw(picture, states);
-      }
-    }
-
-  private:
-    const std::vector<const sf::Texture*>& _textures;
-    std::vector<sf::Sprite> _pictures;
-};
 
 const sf::VideoMode VIDEO_MODE(1280, 720);
+const std::size_t DRUM_SIZE = 3;
 
 int main() {
+  std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
   sf::RenderWindow window(VIDEO_MODE, "SFML", sf::Style::Close);
   window.setFramerateLimit(120);
 
@@ -85,9 +52,9 @@ int main() {
 
   // Drums.
   std::vector<Drum> drums;
-  drums.emplace_back(picture_textures);
-  drums.emplace_back(picture_textures);
-  drums.emplace_back(picture_textures);
+  drums.emplace_back(picture_textures, DRUM_SIZE);
+  drums.emplace_back(picture_textures, DRUM_SIZE);
+  drums.emplace_back(picture_textures, DRUM_SIZE);
 
   {
     float drum_width =
@@ -130,6 +97,10 @@ int main() {
 
     // Update simulation.
     frame_time = frame_clock.restart();
+
+    for(auto& drum : drums) {
+      drum.update(frame_time);
+    }
 
     // Render.
     window.clear({255, 255, 255});
