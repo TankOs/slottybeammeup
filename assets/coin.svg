@@ -16,7 +16,10 @@
    id="svg4228"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="coin.svg">
+   sodipodi:docname="coin.svg"
+   inkscape:export-filename="/home/stsch/projects/slottybeammeup/assets/coin.png"
+   inkscape:export-xdpi="45"
+   inkscape:export-ydpi="45">
   <defs
      id="defs4230">
     <linearGradient
@@ -72,7 +75,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="13.539578"
+     inkscape:cx="-72.323388"
      inkscape:cy="92.863487"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -91,7 +94,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -101,34 +104,37 @@
      id="layer1"
      transform="translate(0,-796.36216)">
     <g
-       id="g4835"
-       transform="translate(-1.7110272e-6,-2.3479241)">
-      <path
-         sodipodi:nodetypes="ssssssss"
-         inkscape:connector-curvature="0"
-         id="path4795"
-         d="m 222.29071,939.21008 c 0.006,11.44019 -42.21314,20.71429 -94.28571,20.71429 -52.072567,0 -94.281237,-9.2741 -94.285707,-20.71429 l -0.01,-24.8506 c -0.004,-8.98033 42.24359,7.3222 54.48922,6.06747 12.093407,-1.23914 25.581957,-1.93115 39.806197,-1.93115 33.15304,0 94.26269,-21.93909 94.27227,-4.19371 z"
-         style="opacity:1;fill:url(#linearGradient4829);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <ellipse
-         ry="20.714285"
-         rx="94.285713"
-         cy="914.21008"
-         cx="128"
-         id="path4795-1"
-         style="opacity:1;fill:url(#linearGradient4821);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <text
-         transform="matrix(0,0.61112525,-1.6363258,0,0,0)"
-         sodipodi:linespacing="125%"
-         id="text4831"
-         y="-61.992542"
-         x="1479.386"
-         style="font-style:normal;font-weight:normal;font-size:24.44501114px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:48.89002228px;font-family:'Century SchoolBook URW';-inkscape-font-specification:'Century SchoolBook URW Bold'"
-           y="-61.992542"
+       id="g10779">
+      <g
+         transform="translate(-1.7110272e-6,-2.3479241)"
+         id="g4835">
+        <path
+           style="opacity:1;fill:url(#linearGradient4829);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 222.29071,939.21008 c 0.006,11.44019 -42.21314,20.71429 -94.28571,20.71429 -52.072567,0 -94.281237,-9.2741 -94.285707,-20.71429 l -0.01,-24.8506 c -0.004,-8.98033 42.24359,7.3222 54.48922,6.06747 12.093407,-1.23914 25.581957,-1.93115 39.806197,-1.93115 33.15304,0 94.26269,-21.93909 94.27227,-4.19371 z"
+           id="path4795"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ssssssss" />
+        <ellipse
+           style="opacity:1;fill:url(#linearGradient4821);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="path4795-1"
+           cx="128"
+           cy="914.21008"
+           rx="94.285713"
+           ry="20.714285" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:24.44501114px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            x="1479.386"
-           id="tspan4833"
-           sodipodi:role="line">$</tspan></text>
+           y="-61.992542"
+           id="text4831"
+           sodipodi:linespacing="125%"
+           transform="matrix(0,0.61112525,-1.6363258,0,0,0)"><tspan
+             sodipodi:role="line"
+             id="tspan4833"
+             x="1479.386"
+             y="-61.992542"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:48.89002228px;font-family:'Century SchoolBook URW';-inkscape-font-specification:'Century SchoolBook URW Bold'">$</tspan></text>
+      </g>
     </g>
   </g>
 </svg>
