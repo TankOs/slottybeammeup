@@ -82,6 +82,11 @@ int main() {
   drums_sprite.setPosition(frame_sprite.getPosition());
   drums_sprite.setOrigin(frame_sprite.getOrigin());
 
+  // Blur shader.
+  sf::Shader blur_shader;
+  blur_shader.loadFromFile(ASSETS_PATH + "/blur.glsl", sf::Shader::Fragment);
+  blur_shader.setParameter("texture", sf::Shader::CurrentTexture);
+
   // Loop.
   sf::Event event;
   bool terminate = false;
@@ -97,7 +102,7 @@ int main() {
         }
         else if(event.key.code == sf::Keyboard::Key::S) {
           for(auto& drum : drums) {
-            drum.setRunning(!drum.getRunning());
+            drum.set_running(!drum.get_running());
           }
         }
       }
@@ -118,8 +123,16 @@ int main() {
     // Render.
     drums_render_texture.clear({255, 255, 255});
 
+    sf::RenderStates states;
+    states.shader = &blur_shader;
+
     for(const auto& drum : drums) {
-      drums_render_texture.draw(drum);
+      blur_shader.setParameter(
+        "blur_radius",
+        drum.get_speed() * 0.09f
+      );
+
+      drums_render_texture.draw(drum, states);
     }
 
     drums_render_texture.display();

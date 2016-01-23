@@ -59,17 +59,18 @@ void Drum::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Drum::update(sf::Time time) {
-  float target_speed = (_running == true ?  _stepping : 0.0f);
+  float target_speed = (_running == true ?  1.0f : 0.0f);
   float sim_seconds = time.asSeconds();
 
-  if(_running == true) {
-    _speed = std::min(_stepping, _speed + (_acceleration * sim_seconds));
+  if(target_speed > _speed) {
+    _speed += _acceleration * sim_seconds;
   }
-  else {
-    _speed = std::max(0.0f, _speed - (_acceleration * sim_seconds));
+  else if(target_speed < _speed) {
+    _speed -= _acceleration * sim_seconds;
   }
 
-  _offset -= sim_seconds * _speed;
+  _speed = std::max(0.0f, std::min(1.0f, _speed));
+  _offset -= sim_seconds * (_stepping * _speed);
 
   while(_offset <= -1.0f) {
     _active_picture = (_active_picture + 1) % _textures.size();
@@ -77,10 +78,14 @@ void Drum::update(sf::Time time) {
   }
 }
 
-void Drum::setRunning(bool running) {
+void Drum::set_running(bool running) {
   _running = running;
 }
 
-bool Drum::getRunning() const {
+bool Drum::get_running() const {
   return _running;
+}
+
+float Drum::get_speed() const {
+  return _speed;
 }
