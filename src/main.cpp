@@ -21,12 +21,14 @@ int main() {
   window.setFramerateLimit(120);
 
   // Load textures.
+  sf::Texture vegas_texture;
   sf::Texture frame_texture;
   sf::Texture apple_texture;
   sf::Texture coin_texture;
   sf::Texture bar_texture;
   sf::Texture cherries_texture;
 
+  vegas_texture.loadFromFile(ASSETS_PATH + "/lasvegas.jpg");
   frame_texture.loadFromFile(ASSETS_PATH + "/frame.png");
   apple_texture.loadFromFile(ASSETS_PATH + "/apple.png");
   coin_texture.loadFromFile(ASSETS_PATH + "/coin.png");
@@ -34,6 +36,7 @@ int main() {
   cherries_texture.loadFromFile(ASSETS_PATH + "/cherries.png");
 
   // Sprites.
+  sf::Sprite vegas_sprite(vegas_texture);
   sf::Sprite frame_sprite(frame_texture);
   frame_sprite.setOrigin({
       static_cast<float>(frame_texture.getSize().x) / 2.0f,
@@ -130,7 +133,7 @@ int main() {
     }
 
     // Render.
-    drums_render_texture.clear({255, 255, 255});
+    drums_render_texture.clear({255, 255, 255, 200});
 
     sf::RenderStates states;
     states.shader = &blur_shader;
@@ -146,7 +149,8 @@ int main() {
 
     drums_render_texture.display();
 
-    window.clear({255, 255, 255});
+    window.clear();
+    window.draw(vegas_sprite);
     window.draw(drums_sprite);
     window.draw(frame_sprite);
 
