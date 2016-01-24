@@ -141,7 +141,7 @@ int main() {
     for(const auto& drum : drums) {
       blur_shader.setParameter(
         "blur_radius",
-        drum.get_speed() * 0.09f
+        (drum.get_velocity() / drum.get_max_velocity()) * 0.09f
       );
 
       drums_render_texture.draw(drum, states);

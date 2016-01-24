@@ -3,11 +3,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <cassert>
+#include <iomanip>
 
 Drum::Drum(
   const std::vector<const sf::Texture*>& textures,
   std::size_t picture_count,
-  float stepping,
+  float max_velocity,
   float acceleration
 ) :
   sf::Drawable(),
@@ -15,10 +16,10 @@ Drum::Drum(
   _textures(textures),
   _picture_count(picture_count),
   _active_picture(0),
-  _stepping(stepping),
+  _max_velocity(max_velocity),
   _offset(0.0f),
-  _speed(0.0f),
-  _acceleration(acceleration),
+  _velocity(0.0f),
+  _max_acceleration(acceleration),
   _running(true)
 {
   assert(_textures.size() > 0);
@@ -34,7 +35,7 @@ void Drum::draw(sf::RenderTarget& target, sf::RenderStates states) const {
       0.0f,
       (
         -2.0f * static_cast<float>(picture_height) +
-        (_offset * picture_height)
+        _offset
       )
   });
 
@@ -59,22 +60,37 @@ void Drum::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Drum::update(sf::Time time) {
-  float target_speed = (_running == true ?  1.0f : 0.0f);
+  float picture_height = _textures[0]->getSize().y;
+  float target_velocity = (_running == true ? _max_velocity : 0.0f);
+  float acceleration = _max_acceleration;
   float sim_seconds = time.asSeconds();
 
-  if(target_speed > _speed) {
-    _speed += _acceleration * sim_seconds;
-  }
-  else if(target_speed < _speed) {
-    _speed -= _acceleration * sim_seconds;
+  if(_running == false) {
+    float velocity_diff = target_velocity - _velocity;
+    float remaining = picture_height + _offset;
+    float seconds_to_target = remaining / _velocity;
+
+    acceleration = std::max(
+      -_max_acceleration,
+      std::min(
+        _max_acceleration,
+        velocity_diff / seconds_to_target
+      )
+    );
   }
 
-  _speed = std::max(0.0f, std::min(1.0f, _speed));
-  _offset -= sim_seconds * (_stepping * _speed);
+  _velocity = std::max(
+    0.0f,
+    std::min(
+      _max_velocity,
+      _velocity + (acceleration * sim_seconds)
+    )
+  );
+  _offset -= sim_seconds * _velocity;
 
-  while(_offset <= -1.0f) {
+  while(_offset <= -picture_height) {
     _active_picture = (_active_picture + 1) % _textures.size();
-    _offset += 1.0f;
+    _offset += picture_height;
   }
 }
 
@@ -86,6 +102,10 @@ bool Drum::get_running() const {
   return _running;
 }
 
-float Drum::get_speed() const {
-  return _speed;
+float Drum::get_velocity() const {
+  return _velocity;
+}
+
+float Drum::get_max_velocity() const {
+  return _max_velocity;
 }
