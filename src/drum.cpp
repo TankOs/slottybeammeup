@@ -43,7 +43,8 @@ void Drum::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   });
 
   std::size_t texture_idx =
-    (_active_picture + (_picture_count - 2)) % _textures.size();
+    (_active_picture + (_picture_count - 2)) % _textures.size()
+  ;
 
   for(
     std::size_t picture_idx = 0;

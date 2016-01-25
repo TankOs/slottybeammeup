@@ -10,14 +10,14 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="384"
+   width="128"
    height="384"
-   viewBox="0 0 384 384"
+   viewBox="0 0 128 384"
    id="svg4874"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="drums.svg"
-   inkscape:export-filename="/home/stsch/projects/slottybeammeup/assets/drums.png"
+   sodipodi:docname="frame.svg"
+   inkscape:export-filename="/home/stsch/projects/slottybeammeup/assets/frame.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -26,7 +26,7 @@
        inkscape:collect="always"
        xlink:href="#Checkerboard"
        id="pattern8906"
-       patternTransform="matrix(1.2246314,0,0,1.2246314,169.37853,700.79223)" />
+       patternTransform="matrix(1.6047748,0,0,1.6047748,56.45951,700.79223)" />
     <pattern
        inkscape:stockid="Checkerboard"
        id="Checkerboard"
@@ -53,12 +53,12 @@
     </pattern>
     <pattern
        inkscape:collect="always"
-       xlink:href="#Checkerboard-8"
-       id="pattern8906-9"
-       patternTransform="matrix(1.2246314,0,0,1.2246314,169.37853,956.79222)" />
+       xlink:href="#Checkerboard-9"
+       id="pattern8906-0"
+       patternTransform="matrix(1.6047748,0,0,1.6047748,56.459497,956.79221)" />
     <pattern
        inkscape:stockid="Checkerboard"
-       id="Checkerboard-8"
+       id="Checkerboard-9"
        patternTransform="translate(0,0) scale(10,10)"
        height="2"
        width="2"
@@ -66,14 +66,14 @@
        inkscape:collect="always"
        inkscape:isstock="true">
       <rect
-         id="rect8260-8"
+         id="rect8260-2"
          height="1"
          width="1"
          y="0"
          x="0"
          style="fill:black;stroke:none" />
       <rect
-         id="rect8262-7"
+         id="rect8262-1"
          height="1"
          width="1"
          y="1"
@@ -88,9 +88,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.0440878"
-     inkscape:cx="117.30584"
-     inkscape:cy="209.14917"
+     inkscape:zoom="1.5407615"
+     inkscape:cx="157.39373"
+     inkscape:cy="146.86072"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -110,7 +110,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -125,43 +125,28 @@
        width="122.90771"
        height="378.90771"
        x="2.5461442"
-       y="670.9082" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.09228849;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect5441-2"
-       width="122.90771"
-       height="378.90771"
-       x="130.54614"
-       y="670.90826" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.09228849;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect5441-2-7"
-       width="122.90771"
-       height="378.90771"
-       x="258.54614"
-       y="670.90826" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:4.46449518;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect5473"
-       width="379.53549"
-       height="123.53551"
-       x="2.2322476"
-       y="798.59436" />
+       y="670.9082"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="opacity:0.5;fill:url(#pattern8906);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect5475"
-       width="384"
+       width="128"
        height="128"
        x="0"
        y="668.36212"
-       ry="0" />
+       ry="0"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
-       style="opacity:0.5;fill:url(#pattern8906-9);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect5475-3"
-       width="384"
+       style="opacity:0.5;fill:url(#pattern8906-0);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect5475-9"
+       width="128"
        height="128"
        x="0"
        y="924.36212"
-       ry="0" />
+       ry="0"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

@@ -9,9 +9,9 @@
 #include <cassert>
 #include <iostream>
 
-
 const sf::VideoMode VIDEO_MODE(1280, 720);
-const std::size_t DRUM_SIZE = 3;
+const std::size_t DRUM_COUNT = 8;
+const std::size_t PICTURE_COUNT = 3;
 const sf::Time SIM_STEP = sf::milliseconds(1000 / 100); // 100 FPS.
 
 int main() {
@@ -35,17 +35,11 @@ int main() {
   bar_texture.loadFromFile(ASSETS_PATH + "/bar.png");
   cherries_texture.loadFromFile(ASSETS_PATH + "/cherries.png");
 
+  frame_texture.setRepeated(true);
+
   // Sprites.
   sf::Sprite vegas_sprite(vegas_texture);
   sf::Sprite frame_sprite(frame_texture);
-  frame_sprite.setOrigin({
-      static_cast<float>(frame_texture.getSize().x) / 2.0f,
-      static_cast<float>(frame_texture.getSize().y) / 2.0f
-  });
-  frame_sprite.setPosition({
-      static_cast<float>(window.getSize().x) / 2.0f,
-      static_cast<float>(window.getSize().y) / 2.0f
-  });
 
   // Pictures.
   std::vector<const sf::Texture*> picture_textures;
@@ -56,20 +50,22 @@ int main() {
 
   // Drums.
   std::vector<Drum> drums;
-  drums.emplace_back(picture_textures, DRUM_SIZE);
-  drums.emplace_back(picture_textures, DRUM_SIZE);
-  drums.emplace_back(picture_textures, DRUM_SIZE);
+  sf::Vector2f drum_size(
+    static_cast<float>(frame_texture.getSize().x),
+    static_cast<float>(frame_texture.getSize().y)
+  );
+  sf::Vector2f frame_size(drum_size.x * DRUM_COUNT, drum_size.y);
 
   {
-    float drum_width =
-      static_cast<float>(frame_texture.getSize().x / drums.size())
-    ;
+    // Absolutely positioned, because rendered in render texture.
     sf::Vector2f drum_position(0.0f, 0.0f);
 
-    for(std::size_t drum_idx = 0; drum_idx < drums.size(); ++drum_idx) {
-      Drum& drum = drums[drum_idx];
+    for(std::size_t drum_idx = 0; drum_idx < DRUM_COUNT; ++drum_idx) {
+      drums.emplace_back(picture_textures, PICTURE_COUNT);
+
+      auto& drum = drums.back();
       drum.setPosition(drum_position);
-      drum_position.x += drum_width;
+      drum_position.x += drum_size.x;
     }
   }
 
@@ -77,13 +73,29 @@ int main() {
   // apply a scissor to it. SFML only has limited support for such things.
   sf::RenderTexture drums_render_texture;
   drums_render_texture.create(
-    frame_texture.getSize().x,
-    frame_texture.getSize().y
+    static_cast<unsigned int>(frame_size.x),
+    static_cast<unsigned int>(frame_size.y)
   );
 
   sf::Sprite drums_sprite(drums_render_texture.getTexture());
-  drums_sprite.setPosition(frame_sprite.getPosition());
-  drums_sprite.setOrigin(frame_sprite.getOrigin());
+  drums_sprite.setPosition(
+    static_cast<float>(window.getSize().x) / 2.0f - frame_size.x / 2.0f,
+    static_cast<float>(window.getSize().y) / 2.0f - frame_size.y / 2.0f
+  );
+
+  // Frame visual.
+  sf::VertexArray frame_visual(sf::PrimitiveType::Quads, 4);
+
+  frame_visual[0] = sf::Vertex({0.0f, 0.0f}, {0.0f, 0.0f});
+  frame_visual[1] = sf::Vertex({0.0f, frame_size.y}, {0.0f, frame_size.y});
+  frame_visual[2] = sf::Vertex(
+    {frame_size.x, frame_size.y}, {frame_size.x, frame_size.y}
+  );
+  frame_visual[3] = sf::Vertex({frame_size.x, 0.0f}, {frame_size.x, 0.0f});
+
+  sf::RenderStates frame_states;
+  frame_states.texture = &frame_texture;
+  frame_states.transform.translate(drums_sprite.getPosition());
 
   // Blur shader.
   sf::Shader blur_shader;
@@ -108,14 +120,17 @@ int main() {
             drum.toggle();
           }
         }
-        else if(event.key.code == sf::Keyboard::Key::Num1) {
-          drums[0].toggle();
-        }
-        else if(event.key.code == sf::Keyboard::Key::Num2) {
-          drums[1].toggle();
-        }
-        else if(event.key.code == sf::Keyboard::Key::Num3) {
-          drums[2].toggle();
+        else if(
+          event.key.code >= sf::Keyboard::Key::Num1 &&
+          event.key.code <= sf::Keyboard::Key::Num9
+        ) {
+          std::size_t index = static_cast<std::size_t>(
+            event.key.code - sf::Keyboard::Key::Num1
+          );
+
+          if(index < drums.size()) {
+            drums[index].toggle();
+          }
         }
       }
     }
@@ -152,7 +167,7 @@ int main() {
     window.clear();
     window.draw(vegas_sprite);
     window.draw(drums_sprite);
-    window.draw(frame_sprite);
+    window.draw(frame_visual, frame_states);
 
     window.display();
   }
