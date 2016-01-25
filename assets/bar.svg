@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="-55.968174"
-     inkscape:cy="66.083308"
+     inkscape:zoom="5.6"
+     inkscape:cx="66.457443"
+     inkscape:cy="64.1936"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -57,30 +57,25 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-924.36216)">
-    <g
-       id="g10147"
-       transform="matrix(0.85491071,0,0,0.85491071,9.2857146,143.40074)"
-       style="stroke:#000000;stroke-width:1.00010444;stroke-miterlimit:4;stroke-dasharray:none">
-      <rect
-         ry="8.75"
-         y="956.36218"
-         x="0"
-         height="64"
-         width="128"
-         id="rect6155"
-         style="opacity:1;fill:#ffdd55;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.848564;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text6157"
-         y="1005.7206"
-         x="23.558105"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.00010444;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Envy Code R';-inkscape-font-specification:'Envy Code R';stroke:#000000;stroke-width:1.00010444;stroke-miterlimit:4;stroke-dasharray:none"
-           y="1005.7206"
-           x="23.558105"
-           id="tspan6159"
-           sodipodi:role="line">BAR</tspan></text>
-    </g>
+    <rect
+       style="opacity:1;fill:#ffdd55;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.84856415;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6155"
+       width="109.42857"
+       height="54.714287"
+       x="9.2857141"
+       y="961.005"
+       ry="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:34.19643021px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00010443;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="29.425791"
+       y="1003.202"
+       id="text6157"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6159"
+         x="29.425791"
+         y="1003.202"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.7455368px;font-family:'Envy Code R';-inkscape-font-specification:'Envy Code R';stroke:none;stroke-width:1.00010443;stroke-miterlimit:4;stroke-dasharray:none">BAR</tspan></text>
   </g>
 </svg>
