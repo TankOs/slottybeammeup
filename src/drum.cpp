@@ -37,8 +37,7 @@ void Drum::draw(sf::RenderTarget& target, sf::RenderStates states) const {
       0.0f,
       (
         -2.0f * static_cast<float>(picture_height) +
-        _offset -
-        _stop_shift
+        _offset + _stop_shift
       )
   });
 
@@ -71,12 +70,18 @@ void Drum::update(sf::Time time) {
     _velocity += _max_acceleration * sim_seconds;
     _velocity = std::max(0.0f, std::min(_max_velocity, _velocity));
 
-    _offset -= sim_seconds * _velocity;
+    _offset += sim_seconds * _velocity;
 
-    if(_offset <= -picture_height) {
-      while(_offset <= -picture_height) {
-        _active_picture = (_active_picture + 1) % _textures.size();
-        _offset += picture_height;
+    if(_offset >= picture_height) {
+      while(_offset >= picture_height) {
+        if(_active_picture > 0) {
+          --_active_picture;
+        }
+        else {
+          _active_picture = _textures.size() - 1;
+        }
+
+        _offset -= picture_height;
       }
 
       if(_stop == true) {
