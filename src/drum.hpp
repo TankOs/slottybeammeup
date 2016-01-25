@@ -7,8 +7,8 @@ class Drum : public sf::Drawable, public sf::Transformable {
     Drum(
       const std::vector<const sf::Texture*>& textures,
       std::size_t picture_count,
-      float max_velocity = 1500.0f,
-      float acceleration = 4000.0f
+      float max_velocity = 2000.0f,
+      float acceleration = 8000.0f
     );
 
     void start();
