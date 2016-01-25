@@ -10,7 +10,7 @@
 #include <iostream>
 
 const sf::VideoMode VIDEO_MODE(1280, 720);
-const std::size_t DRUM_COUNT = 8;
+const std::size_t DRUM_COUNT = 5;
 const std::size_t PICTURE_COUNT = 3;
 const sf::Time SIM_STEP = sf::milliseconds(1000 / 100); // 100 FPS.
 
