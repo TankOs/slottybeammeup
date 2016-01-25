@@ -11,12 +11,19 @@ class Drum : public sf::Drawable, public sf::Transformable {
       float acceleration = 4000.0f
     );
 
+    void start();
+    bool is_running() const;
+
+    void stop();
+    bool is_stopping() const;
+
+    void toggle();
+
+    float get_max_velocity() const;
+    float get_velocity() const;
+
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void update(sf::Time time);
-    void set_running(bool running);
-    bool get_running() const;
-    float get_velocity() const;
-    float get_max_velocity() const;
 
   private:
     const std::vector<const sf::Texture*>& _textures;
@@ -26,5 +33,7 @@ class Drum : public sf::Drawable, public sf::Transformable {
     float _offset;
     float _velocity;
     float _max_acceleration;
+    float _stop_shift;
     bool _running;
+    bool _stop;
 };

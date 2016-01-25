@@ -20,7 +20,9 @@ Drum::Drum(
   _offset(0.0f),
   _velocity(0.0f),
   _max_acceleration(acceleration),
-  _running(true)
+  _stop_shift(0.0f),
+  _running(true),
+  _stop(false)
 {
   assert(_textures.size() > 0);
 }
@@ -35,7 +37,8 @@ void Drum::draw(sf::RenderTarget& target, sf::RenderStates states) const {
       0.0f,
       (
         -2.0f * static_cast<float>(picture_height) +
-        _offset
+        _offset -
+        _stop_shift
       )
   });
 
@@ -60,46 +63,65 @@ void Drum::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Drum::update(sf::Time time) {
-  float picture_height = _textures[0]->getSize().y;
-  float target_velocity = (_running == true ? _max_velocity : 0.0f);
-  float acceleration = _max_acceleration;
   float sim_seconds = time.asSeconds();
+  float picture_height = _textures[0]->getSize().y;
 
-  if(_running == false) {
-    float velocity_diff = target_velocity - _velocity;
-    float remaining = picture_height + _offset;
-    float seconds_to_target = remaining / _velocity;
+  if(_running == true) {
+    _velocity += _max_acceleration * sim_seconds;
+    _velocity = std::max(0.0f, std::min(_max_velocity, _velocity));
 
-    acceleration = std::max(
-      -_max_acceleration,
-      std::min(
-        _max_acceleration,
-        velocity_diff / seconds_to_target
-      )
-    );
+    _offset -= sim_seconds * _velocity;
+
+    if(_offset <= -picture_height) {
+      while(_offset <= -picture_height) {
+        _active_picture = (_active_picture + 1) % _textures.size();
+        _offset += picture_height;
+      }
+
+      if(_stop == true) {
+        _offset = 0.0f;
+        _velocity = 0.0f;
+        _running = false;
+        _stop = false;
+        _stop_shift = picture_height * 0.08f;
+      }
+    }
   }
-
-  _velocity = std::max(
-    0.0f,
-    std::min(
-      _max_velocity,
-      _velocity + (acceleration * sim_seconds)
-    )
-  );
-  _offset -= sim_seconds * _velocity;
-
-  while(_offset <= -picture_height) {
-    _active_picture = (_active_picture + 1) % _textures.size();
-    _offset += picture_height;
+  else {
+    if(_stop_shift > 0.0f) {
+      _stop_shift = std::max(
+        0.0f,
+        _stop_shift - (sim_seconds * picture_height)
+      );
+    }
   }
 }
 
-void Drum::set_running(bool running) {
-  _running = running;
+void Drum::start() {
+  _running = true;
+  _stop = false;
+  _stop_shift = 0.0f;
 }
 
-bool Drum::get_running() const {
+void Drum::stop() {
+  _stop = true;
+}
+
+void Drum::toggle() {
+  if(_running == true) {
+    stop();
+  }
+  else {
+    start();
+  }
+}
+
+bool Drum::is_running() const {
   return _running;
+}
+
+bool Drum::is_stopping() const {
+  return _stop;
 }
 
 float Drum::get_velocity() const {

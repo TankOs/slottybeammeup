@@ -105,17 +105,17 @@ int main() {
         }
         else if(event.key.code == sf::Keyboard::Key::S) {
           for(auto& drum : drums) {
-            drum.set_running(!drum.get_running());
+            drum.toggle();
           }
         }
         else if(event.key.code == sf::Keyboard::Key::Num1) {
-          drums[0].set_running(!drums[0].get_running());
+          drums[0].toggle();
         }
         else if(event.key.code == sf::Keyboard::Key::Num2) {
-          drums[1].set_running(!drums[1].get_running());
+          drums[1].toggle();
         }
         else if(event.key.code == sf::Keyboard::Key::Num3) {
-          drums[2].set_running(!drums[2].get_running());
+          drums[2].toggle();
         }
       }
     }
