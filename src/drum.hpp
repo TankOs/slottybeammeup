@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <deque>
+
 class Drum : public sf::Drawable, public sf::Transformable {
   public:
     Drum(
@@ -27,8 +29,8 @@ class Drum : public sf::Drawable, public sf::Transformable {
 
   private:
     const std::vector<const sf::Texture*>& _textures;
+    std::deque<std::size_t> _pictures;
     std::size_t _picture_count;
-    std::size_t _active_picture;
     float _max_velocity;
     float _offset;
     float _velocity;

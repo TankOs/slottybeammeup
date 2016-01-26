@@ -15,7 +15,6 @@ Drum::Drum(
   sf::Transformable(),
   _textures(textures),
   _picture_count(picture_count),
-  _active_picture(0),
   _max_velocity(max_velocity),
   _offset(0.0f),
   _velocity(0.0f),
@@ -24,7 +23,23 @@ Drum::Drum(
   _running(true),
   _stop(false)
 {
-  assert(_textures.size() > 0);
+  assert(_textures.size() > 1);
+
+  std::size_t last_pick = 0;
+  std::size_t next_pick = 0;
+
+  for(
+    std::size_t picture_idx = 0;
+    picture_idx < _picture_count + 2;
+    ++picture_idx
+  ) {
+    while(next_pick == last_pick) {
+      next_pick = static_cast<std::size_t>(std::rand()) % _textures.size();
+    }
+
+    _pictures.push_back(next_pick);
+    last_pick = next_pick;
+  }
 }
 
 void Drum::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -41,24 +56,14 @@ void Drum::draw(sf::RenderTarget& target, sf::RenderStates states) const {
       )
   });
 
-  std::size_t texture_idx =
-    (_active_picture + (_picture_count - 2)) % _textures.size()
-  ;
-
   for(
     std::size_t picture_idx = 0;
-    picture_idx < _picture_count + 2;
+    picture_idx < _pictures.size();
     ++picture_idx
   ) {
-    picture.setPosition(
-      picture.getPosition() +
-      sf::Vector2f(0.0f, picture_height)
-    );
-    picture.setTexture(*_textures[texture_idx], true);
-
+    picture.move({0.0f, picture_height});
+    picture.setTexture(*_textures[_pictures[picture_idx]], true);
     target.draw(picture, states);
-
-    texture_idx = (texture_idx + 1) % _textures.size();
   }
 }
 
@@ -74,13 +79,16 @@ void Drum::update(sf::Time time) {
 
     if(_offset >= picture_height) {
       while(_offset >= picture_height) {
-        if(_active_picture > 0) {
-          --_active_picture;
-        }
-        else {
-          _active_picture = _textures.size() - 1;
+        _pictures.pop_front();
+
+        std::size_t last_pick = _pictures.back();
+        std::size_t next_pick = last_pick;
+
+        while(next_pick == last_pick) {
+          next_pick = static_cast<std::size_t>(std::rand()) % _textures.size();
         }
 
+        _pictures.push_back(next_pick);
         _offset -= picture_height;
       }
 
