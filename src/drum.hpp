@@ -1,5 +1,7 @@
 #pragma once
 
+#include "signal.hpp"
+
 #include <SFML/Graphics.hpp>
 
 #include <deque>
@@ -26,6 +28,9 @@ class Drum : public sf::Drawable, public sf::Transformable {
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void update(sf::Time time);
+
+    Signal<void()> on_stop;
+    Signal<void()> on_start;
 
   private:
     const std::vector<const sf::Texture*>& _textures;

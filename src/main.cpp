@@ -3,6 +3,7 @@
 #include "drum.hpp"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include <vector>
 #include <cstdint>
@@ -20,6 +21,16 @@ int main() {
   sf::RenderWindow window(VIDEO_MODE, "SFML", sf::Style::Close);
   window.setFramerateLimit(120);
 
+  // Load sounds.
+  sf::SoundBuffer stop_buffer;
+  sf::SoundBuffer start_buffer;
+
+  stop_buffer.loadFromFile(ASSETS_PATH + "/stop.wav");
+  start_buffer.loadFromFile(ASSETS_PATH + "/start.wav");
+
+  sf::Sound stop_sound(stop_buffer);
+  sf::Sound start_sound(start_buffer);
+
   // Load textures.
   sf::Texture vegas_texture;
   sf::Texture frame_texture;
@@ -27,6 +38,7 @@ int main() {
   sf::Texture coin_texture;
   sf::Texture bar_texture;
   sf::Texture cherries_texture;
+  sf::Texture sfml_texture;
 
   vegas_texture.loadFromFile(ASSETS_PATH + "/lasvegas.jpg");
   frame_texture.loadFromFile(ASSETS_PATH + "/frame.png");
@@ -34,6 +46,7 @@ int main() {
   coin_texture.loadFromFile(ASSETS_PATH + "/coin.png");
   bar_texture.loadFromFile(ASSETS_PATH + "/bar.png");
   cherries_texture.loadFromFile(ASSETS_PATH + "/cherries.png");
+  sfml_texture.loadFromFile(ASSETS_PATH + "/sfml.png");
 
   frame_texture.setRepeated(true);
 
@@ -47,6 +60,7 @@ int main() {
   picture_textures.push_back(&coin_texture);
   picture_textures.push_back(&bar_texture);
   picture_textures.push_back(&cherries_texture);
+  picture_textures.push_back(&sfml_texture);
 
   // Drums.
   std::vector<Drum> drums;
@@ -66,6 +80,15 @@ int main() {
       auto& drum = drums.back();
       drum.setPosition(drum_position);
       drum_position.x += drum_size.x;
+
+      // Setup callbacks.
+      drum.on_stop.add_slot([&stop_sound]() {
+          stop_sound.play();
+      });
+
+      drum.on_start.add_slot([&start_sound]() {
+          start_sound.play();
+      });
     }
   }
 

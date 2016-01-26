@@ -98,6 +98,7 @@ void Drum::update(sf::Time time) {
         _running = false;
         _stop = false;
         _stop_shift = picture_height * 0.08f;
+        on_stop.call();
       }
     }
   }
@@ -115,6 +116,8 @@ void Drum::start() {
   _running = true;
   _stop = false;
   _stop_shift = 0.0f;
+
+  on_start.call();
 }
 
 void Drum::stop() {
